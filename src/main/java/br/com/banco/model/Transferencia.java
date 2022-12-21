@@ -12,18 +12,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Transferencia {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "data_transferencia")
-	private LocalDate dataTransferência;
+	private LocalDate dataTransferencia;
 	private BigDecimal valor;
 	@Column(name = "tipo")
-	private String tipoTransfência;
+	private String tipoTransferencia;
 	private String nomeOperadorTransacao;
 	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "conta_id")
 	private Conta conta;
@@ -31,13 +34,14 @@ public class Transferencia {
 	public Transferencia() {
 	}
 
-	public Transferencia(Long id, LocalDate dataTransferência, BigDecimal valor, String tipoTransfência,
-			String nomeOperadorTransacao) {
+	public Transferencia(Long id, LocalDate dataTransferencia, BigDecimal valor, String tipoTransferencia,
+			String nomeOperadorTransacao, Conta conta) {
 		this.id = id;
-		this.dataTransferência = dataTransferência;
+		this.dataTransferencia = dataTransferencia;
 		this.valor = valor;
-		this.tipoTransfência = tipoTransfência;
+		this.tipoTransferencia = tipoTransferencia;
 		this.nomeOperadorTransacao = nomeOperadorTransacao;
+		this.conta = conta;
 	}
 
 	public Long getId() {
@@ -48,12 +52,12 @@ public class Transferencia {
 		this.id = id;
 	}
 
-	public LocalDate getDataTransferência() {
-		return dataTransferência;
+	public LocalDate getDataTransferencia() {
+		return dataTransferencia;
 	}
 
-	public void setDataTransferência(LocalDate dataTransferência) {
-		this.dataTransferência = dataTransferência;
+	public void setDataTransferencia(LocalDate dataTransferencia) {
+		this.dataTransferencia = dataTransferencia;
 	}
 
 	public BigDecimal getValor() {
@@ -64,12 +68,12 @@ public class Transferencia {
 		this.valor = valor;
 	}
 
-	public String getTipoTransfência() {
-		return tipoTransfência;
+	public String getTipoTransferencia() {
+		return tipoTransferencia;
 	}
 
-	public void setTipoTransfência(String tipoTransfência) {
-		this.tipoTransfência = tipoTransfência;
+	public void setTipoTransferencia(String tipoTransferencia) {
+		this.tipoTransferencia = tipoTransferencia;
 	}
 
 	public String getNomeOperadorTransacao() {
@@ -79,4 +83,12 @@ public class Transferencia {
 	public void setNomeOperadorTransacao(String nomeOperadorTransacao) {
 		this.nomeOperadorTransacao = nomeOperadorTransacao;
 	}
+
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}	
 }

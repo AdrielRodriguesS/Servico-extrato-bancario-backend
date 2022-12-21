@@ -12,8 +12,11 @@ public class ContaService {
 	@Autowired
 	ContaRepository contaRepository;
 	
-	public Conta BuscarContaPorId(Long id) {
-		return contaRepository.findById(id).get();
+	public Conta BuscarContaPorId(String id) {
+		
+		Long idLong = Long.parseLong(id);
+		
+		return contaRepository.findById(idLong).get();
 	}
 
 }

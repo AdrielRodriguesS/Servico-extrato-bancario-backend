@@ -2,6 +2,7 @@ package br.com.banco.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import br.com.banco.model.Conta;
 import br.com.banco.service.ContaService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/contas")
 public class ContaController {
 	
@@ -18,7 +20,7 @@ public class ContaController {
 	private ContaService contaService;
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<?> BuscarPorId(@PathVariable Long id){
+	public ResponseEntity<?> BuscarPorId(@PathVariable String id){
 		Conta conta = this.contaService.BuscarContaPorId(id);
 		return ResponseEntity.ok(conta);
 	}
