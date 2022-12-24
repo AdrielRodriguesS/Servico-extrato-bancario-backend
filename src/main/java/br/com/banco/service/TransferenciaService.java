@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.banco.model.Transferencia;
@@ -13,10 +14,12 @@ import br.com.banco.repository.TransferenciaRepository;
 public class TransferenciaService {
 	
 	@Autowired
-	TransferenciaRepository transferenciaRepository;
+	private TransferenciaRepository transferenciaRepository;	
 	
 	public Transferencia buscarTransferenciaPorId(Long id) {
+		
 		return transferenciaRepository.findById(id).get();
+
 	}
 
 	public List<Transferencia> buscarTransferencias(String minDate, String maxDate, String nomeOperador, String id) {
@@ -44,6 +47,18 @@ public class TransferenciaService {
 	}
 	
 	public Double buscarValores(String id){
+		
+		Long idConta = Long.parseLong(id);
+		
+		List<Double> valores = transferenciaRepository.findValores(idConta);
+		Double totalConta = 0.0;
+		for(Double v : valores) {
+			totalConta += v;
+		}
+		return totalConta;
+	}
+	
+	public Double buscarValores(String id, TransferenciaRepository transferenciaRepository){
 		
 		Long idConta = Long.parseLong(id);
 		

@@ -23,11 +23,17 @@ public class TransferenciaController {
 	TransferenciaService transferenciaService;
 	
 	@GetMapping("/{id}")
-	public List<Transferencia> buscarTransferencias(@PathVariable String id,
+	public ResponseEntity<List<Transferencia>> buscarTransferencias(@PathVariable String id,
 			@RequestParam (value="minDate", defaultValue = "") String minDate,
 			@RequestParam(value="maxDate", defaultValue = "") String maxDate,
 			@RequestParam(value="nomeOp", defaultValue = "") String nomeOperador){
-		return transferenciaService.buscarTransferencias(minDate, maxDate, nomeOperador, id);
+		List<Transferencia> transferencias = transferenciaService.buscarTransferencias(minDate, maxDate, nomeOperador, id);
+		
+		if(transferencias.isEmpty()) {
+			return ResponseEntity.badRequest().build();
+		} else {
+			return ResponseEntity.ok(transferencias);
+		}
 	}
 	
 	@GetMapping("/{id}/total-valores")

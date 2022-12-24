@@ -90,5 +90,11 @@ public class Transferencia {
 
 	public void setConta(Conta conta) {
 		this.conta = conta;
-	}	
+	}
+	
+	public void setContaId(Long id) {
+		this.conta.setId(id);
+	}
+	
+	
 }
